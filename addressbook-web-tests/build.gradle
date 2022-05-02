@@ -1,0 +1,15 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation 'org.testng:testng:7.5'
+    implementation 'org.seleniumhq.selenium:selenium-java:4.1.4'
+    implementation 'org.slf4j:slf4j-nop:1.7.36'
+
+}
+test {
+// useJUnitPlatform()
+    useTestNG()
+}
