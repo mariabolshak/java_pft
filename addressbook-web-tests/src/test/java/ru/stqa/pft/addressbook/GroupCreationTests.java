@@ -6,7 +6,7 @@ import org.testng.annotations.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class GroupCreationTests {
+public class GroupCreationTests extends TestBase {
   private WebDriver wd;
 
 
