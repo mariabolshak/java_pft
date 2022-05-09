@@ -14,16 +14,15 @@ public class ApplicationManager {
   private NavigationHelper navigationHelper;
   private GroupHelper groupHelper;
 
- public void init() {
+  public void init() {
     wd = new FirefoxDriver();
     wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     wd.get("http://localhost:8080/addressbook/");
-   groupHelper = new GroupHelper(wd);
-   navigationHelper = new NavigationHelper(wd);
-   sessionHelper=new SessionHelper(wd);
-   sessionHelper.login("admin", "secret");
+    groupHelper = new GroupHelper(wd);
+    navigationHelper = new NavigationHelper(wd);
+    sessionHelper = new SessionHelper(wd);
+    sessionHelper.login("admin", "secret");
   }
-
 
 
   public boolean isElementPresent(By by) {
@@ -35,14 +34,6 @@ public class ApplicationManager {
     }
   }
 
-  public boolean isAlertPresent() {
-    try {
-      wd.switchTo().alert();
-      return true;
-    } catch (NoAlertPresentException e) {
-      return false;
-    }
-  }
 
   public GroupHelper getGroupHelper() {
     return groupHelper;
