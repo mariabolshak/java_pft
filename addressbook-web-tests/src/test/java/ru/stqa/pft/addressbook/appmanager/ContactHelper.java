@@ -25,16 +25,32 @@ public class ContactHelper extends BaseHelper {
     type(By.name("nickname"), contactData.nickname());
     type(By.name("title"), contactData.title());
     type(By.name("company"), contactData.company());
+    type(By.name("address"), contactData.address());
     type(By.name("home"), contactData.address());
     type(By.name("mobile"), contactData.address());
     type(By.name("work"), contactData.address());
     type(By.name("fax"), contactData.address());
     type(By.name("email"), contactData.address());
-    type(By.name("address"), contactData.address());
   }
 
   public void initContactCreation() {
     click(By.linkText("add new"));
   }
 
+  public void selectContact() {
+    click(By.name("selected[]"));
+  }
+
+  public void initContactModification() {
+    click(By.xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img"));
+  }
+
+  public void deleteContact() {
+    click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+    wd.switchTo().alert().accept();
+  }
+
+  public void submitContactModification() {
+    click(By.xpath("/html/body/div/div[4]/form[1]/input[22]"));
+  }
 }
