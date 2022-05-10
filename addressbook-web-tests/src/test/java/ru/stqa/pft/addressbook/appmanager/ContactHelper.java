@@ -2,6 +2,7 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 public class ContactHelper extends BaseHelper {
@@ -19,18 +20,22 @@ public class ContactHelper extends BaseHelper {
   }
 
   public void fillContactForm(ContactData contactData) {
-    type(By.name("firstname"), contactData.firstname());
-    type(By.name("middlename"), contactData.middlename());
-    type(By.name("lastname"), contactData.lastname());
-    type(By.name("nickname"), contactData.nickname());
-    type(By.name("title"), contactData.title());
-    type(By.name("company"), contactData.company());
-    type(By.name("address"), contactData.address());
-    type(By.name("home"), contactData.address());
-    type(By.name("mobile"), contactData.address());
-    type(By.name("work"), contactData.address());
-    type(By.name("fax"), contactData.address());
-    type(By.name("email"), contactData.address());
+    type(By.name("firstname"), contactData.getFirstname());
+    type(By.name("middlename"), contactData.getMiddlename());
+    type(By.name("lastname"), contactData.getLastname());
+    type(By.name("nickname"), contactData.getNickname());
+    type(By.name("title"), contactData.getTitle());
+    type(By.name("company"), contactData.getCompany());
+    type(By.name("address"), contactData.getAddress());
+    type(By.name("home"), contactData.getHomephone());
+    type(By.name("mobile"), contactData.getMobilephone());
+    type(By.name("work"), contactData.getWorkphone());
+    type(By.name("fax"), contactData.getFax());
+    type(By.name("email"), contactData.getEmail());
+
+    if (isElementPresent(By.name("new_group"))) {
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+    }
   }
 
   public void initContactCreation() {
@@ -54,3 +59,5 @@ public class ContactHelper extends BaseHelper {
     click(By.xpath("/html/body/div/div[4]/form[1]/input[22]"));
   }
 }
+
+
