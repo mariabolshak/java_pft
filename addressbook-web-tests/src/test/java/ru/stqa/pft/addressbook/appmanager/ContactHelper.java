@@ -2,10 +2,14 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends BaseHelper {
 
@@ -34,18 +38,19 @@ public class ContactHelper extends BaseHelper {
     type(By.name("work"), contactData.getWorkphone());
     type(By.name("fax"), contactData.getFax());
     type(By.name("email"), contactData.getEmail());
-     if (creation) {new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-     } else {
-       Assert.assertFalse(isElementPresent(By.name("new_group")));
-     }
-      }
+    if (creation) {
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+    } else {
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
+  }
 
   public void initContactCreation() {
     click(By.linkText("add new"));
   }
 
-  public void selectContact() {
-    click(By.name("selected[]"));
+  public void selectContact(int i) {
+    wd.findElements(By.name("selected[]")).get(i).click();;
   }
 
   public void initContactModification() {
@@ -70,6 +75,19 @@ public class ContactHelper extends BaseHelper {
 
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
+  }
+
+  public List<ContactData> getContactList() {
+    List<ContactData> contacts = new ArrayList<ContactData>();
+    List<WebElement> elements = wd.findElements(By.xpath("//tr[@name = 'entry']"));
+    for (WebElement element : elements) {
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      String name =  element.findElement(By.xpath(".//td[3]")).getText();
+      String lastname = element.findElement(By.xpath(".//td[2]")).getText();
+      ContactData contact = new ContactData(id, name, null, lastname, null, null, null, null, null, null, null, null, null, null);
+      contacts.add(contact);
+    }
+    return contacts;
   }
 }
 
