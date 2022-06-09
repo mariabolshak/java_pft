@@ -6,7 +6,6 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class ContactModificationTests extends TestBase {
@@ -22,9 +21,8 @@ public class ContactModificationTests extends TestBase {
       app.getContactHelper().createContact(new ContactData("Maria", "Anna", "Bolshakova", "masha", "DT", "TT", "Nevskiy", "56786", "909876", "4564564", "456456", "dd@t.ru", "test1"));
     }
     List<ContactData> before = app.getContactHelper().getContactList();
-    app.getContactHelper().selectContact(0);
     app.getContactHelper().initContactModification();
-    ContactData contact = new ContactData(before.get(0).getId(),"Maria", "Anna", "Bolshakova", "masha", "DT", "TT", "Nevskiy", "56786", "909875", "4564564", "456456", "dd@t.ru", "test1");
+    ContactData contact = new ContactData(before.get(0).getId(), "Maria", "Anna", "Bolshakova", "masha", "DT", "TT", "Nevskiy", "56786", "909875", "4564564", "456456", "dd@t.ru", "test1");
     app.getContactHelper().fillContactForm(contact, false);
     app.getContactHelper().submitContactModification();
     app.getContactHelper().returnToHomePage();
@@ -32,7 +30,7 @@ public class ContactModificationTests extends TestBase {
     Assert.assertEquals(after.size(), before.size());
     before.remove(0);
     before.add(contact);
-    Comparator<? super ContactData> byId=(c1, c2) -> Integer.compare(c1.getId(),c2.getId());
+    Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
     before.sort(byId);
     after.sort(byId);
     Assert.assertEquals(before, after);
