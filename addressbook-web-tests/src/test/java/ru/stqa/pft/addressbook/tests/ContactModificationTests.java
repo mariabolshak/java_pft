@@ -13,20 +13,22 @@ public class ContactModificationTests extends TestBase {
   @Test
   public void testModificationContact() {
     app.goTo().groupPage();
-    if (!app.group().isThereAGroup()) {
-      app.group().create(new GroupData("test1", "test2", "test3"));
+    if (app.group().list().size()==0) {
+      app.group().create(new GroupData().withName("test1"));
     }
-    app.goTo().goToHomePage();
-    if (!app.getContactHelper().isThereAContact()) {
-      app.getContactHelper().createContact(new ContactData("Maria", "Anna", "Bolshakova", "masha", "DT", "TT", "Nevskiy", "56786", "909876", "4564564", "456456", "dd@t.ru", "test1"));
+    app.goTo().homePage();
+    if (app.contact().list().size()==0) {
+      app.contact().createContact(new ContactData()
+              .withFirstname("Frosia").withMiddlename("Anna").withLastname("Bolshakova").withNickname("masha").withTitle("DT").withCompany("TT").withAddress("Nevskiy").withHomephone("56786").withMobilephone("909876").withWorkphone("4564564").withFax("456456").withEmail("dd@t.ru").withGroup("test1"));
     }
-    List<ContactData> before = app.getContactHelper().getContactList();
-    app.getContactHelper().initContactModification();
-    ContactData contact = new ContactData(before.get(0).getId(), "Maria", "Anna", "Bolshakova", "masha", "DT", "TT", "Nevskiy", "56786", "909875", "4564564", "456456", "dd@t.ru", "test1");
-    app.getContactHelper().fillContactForm(contact, false);
-    app.getContactHelper().submitContactModification();
-    app.getContactHelper().returnToHomePage();
-    List<ContactData> after = app.getContactHelper().getContactList();
+    List<ContactData> before = app.contact().list();
+    app.contact().initContactModification();
+    ContactData contact = new ContactData()
+            .withId(before.get(0).getId()).withFirstname("Maria").withMiddlename("Anna").withLastname("Bolshakova").withNickname("masha").withTitle("DT").withCompany("TT").withAddress("Nevskiy").withHomephone("56786").withMobilephone("909876").withWorkphone("4564564").withFax("456456").withEmail("dd@t.ru").withGroup("test1");
+    app.contact().fillContactForm(contact, false);
+    app.contact().submitContactModification();
+    app.contact().returnToHomePage();
+    List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size());
     before.remove(0);
     before.add(contact);

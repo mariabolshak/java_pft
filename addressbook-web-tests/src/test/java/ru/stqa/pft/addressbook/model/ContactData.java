@@ -103,6 +103,10 @@ public class ContactData {
   public String getEmail() {
     return email;
   }
+  public ContactData withId(int id) {
+    this.id = id;
+    return this;
+  }
 
   public ContactData withFirstname(String firstname) {
     this.firstname = firstname;
