@@ -34,8 +34,16 @@ public class ContactData {
 
 
 
-  public void setId(int id) {
+  private int id = Integer.MAX_VALUE;
+  private String firstname;
+  private String lastname;
+  private String mobile;
+  private String email;
+  private String group;
+
+  public ContactData withId(int id) {
     this.id = id;
+    return this;
   }
 
 

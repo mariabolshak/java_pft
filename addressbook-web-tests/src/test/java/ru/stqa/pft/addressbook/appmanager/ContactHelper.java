@@ -7,8 +7,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends BaseHelper {
 
@@ -65,11 +66,23 @@ public class ContactHelper extends BaseHelper {
     click(By.xpath("/html/body/div/div[4]/form[1]/input[22]"));
   }
 
-  public void createContact(ContactData contact) {
+  public void create(ContactData contact) {
     initContactCreation();
     fillContactForm(contact, true);
     submitContactCreation();
     returnToHomePage();
+  }
+
+  public void modify(ContactData contact) {
+    editById(contact.getId());
+    fillContactForm(contact,false);
+    submitUserUpdate();
+    returnToHomePage();
+  }
+
+  public void delete(ContactData contact) {
+    editById(contact.getId());
+    deleteContactUser();
   }
 
   public boolean isThereAContact() {
@@ -80,15 +93,14 @@ public class ContactHelper extends BaseHelper {
     deleteContact();
   }
 
-  public List<ContactData> list() {
-    List<ContactData> contacts = new ArrayList<ContactData>();
+  public Contacts all() {
+    Contacts contacts = new Contacts();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name = 'entry']"));
     for (WebElement element : elements) {
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       String name =  element.findElement(By.xpath(".//td[3]")).getText();
       String lastname = element.findElement(By.xpath(".//td[2]")).getText();
-      ContactData contact = new ContactData().withId(id).withFirstname(name).withLastname(lastname);
-      contacts.add(contact);
+      contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname));
     }
     return contacts;
   }
