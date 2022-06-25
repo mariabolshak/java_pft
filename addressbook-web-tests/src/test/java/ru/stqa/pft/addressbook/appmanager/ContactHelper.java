@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.util.HashSet;
 import java.util.List;
@@ -53,8 +54,8 @@ public class ContactHelper extends BaseHelper {
     wd.findElements(By.name("selected[]")).get(i).click();;
   }
 
-  public void initContactModification() {
-    click(By.xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img"));
+  public void editById(int id) {
+    wd.findElement(By.xpath("//a[@href='edit.php?id=" + id + "']")).click();
   }
 
   public void deleteContact() {
@@ -76,13 +77,13 @@ public class ContactHelper extends BaseHelper {
   public void modify(ContactData contact) {
     editById(contact.getId());
     fillContactForm(contact,false);
-    submitUserUpdate();
+    submitContactModification();
     returnToHomePage();
   }
 
   public void delete(ContactData contact) {
     editById(contact.getId());
-    deleteContactUser();
+    deleteContact();
   }
 
   public boolean isThereAContact() {
@@ -100,6 +101,7 @@ public class ContactHelper extends BaseHelper {
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       String name =  element.findElement(By.xpath(".//td[3]")).getText();
       String lastname = element.findElement(By.xpath(".//td[2]")).getText();
+      String firstname = element.findElement(By.xpath(".//td[3]")).getText();
       contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname));
     }
     return contacts;

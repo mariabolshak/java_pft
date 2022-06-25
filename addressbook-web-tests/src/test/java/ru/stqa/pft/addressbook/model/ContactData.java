@@ -19,33 +19,87 @@ public class ContactData {
   private String email;
   private String group;
 
+  public ContactData withId(int id) {
+    this.id = id;
+    return this;
+  }
+  public ContactData withFirstname(String firstname) {
+    this.firstname = firstname;
+    return this;
+  }
+
+  public ContactData withMiddlename(String middlename) {
+    this.middlename = middlename;
+    return this;
+  }
+
+  public ContactData withLastname(String lastname) {
+    this.lastname = lastname;
+    return this;
+  }
+
+  public ContactData withNickname(String nickname) {
+    this.nickname = nickname;
+    return this;
+  }
+
+  public ContactData withTitle(String title) {
+    this.title = title;
+    return this;
+  }
+
+  public ContactData withCompany(String company) {
+    this.company = company;
+    return this;
+  }
+
+  public ContactData withAddress(String address) {
+    this.address = address;
+    return this;
+  }
+
+  public ContactData withHomephone(String homephone) {
+    this.homephone = homephone;
+    return this;
+  }
+
+  public ContactData withMobilephone(String mobilephone) {
+    this.mobilephone = mobilephone;
+    return this;
+  }
+
+  public ContactData withWorkphone(String workphone) {
+    this.workphone = workphone;
+    return this;
+  }
+
+  public ContactData withFax(String fax) {
+    this.fax = fax;
+    return this;
+  }
+
+  public ContactData withEmail(String email) {
+    this.email = email;
+    return this;
+  }
+
+  public ContactData withGroup(String group) {
+    this.group = group;
+    return this;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname);
+    return id == that.id && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(firstname, lastname);
+    return Objects.hash(id, firstname, lastname);
   }
-
-
-
-  private int id = Integer.MAX_VALUE;
-  private String firstname;
-  private String lastname;
-  private String mobile;
-  private String email;
-  private String group;
-
-  public ContactData withId(int id) {
-    this.id = id;
-    return this;
-  }
-
 
   @Override
   public String toString() {
@@ -111,73 +165,7 @@ public class ContactData {
   public String getEmail() {
     return email;
   }
-  public ContactData withId(int id) {
-    this.id = id;
-    return this;
-  }
 
-  public ContactData withFirstname(String firstname) {
-    this.firstname = firstname;
-    return this;
-  }
 
-  public ContactData withMiddlename(String middlename) {
-    this.middlename = middlename;
-    return this;
-  }
 
-  public ContactData withLastname(String lastname) {
-    this.lastname = lastname;
-    return this;
-  }
-
-  public ContactData withNickname(String nickname) {
-    this.nickname = nickname;
-    return this;
-  }
-
-  public ContactData withTitle(String title) {
-    this.title = title;
-    return this;
-  }
-
-  public ContactData withCompany(String company) {
-    this.company = company;
-    return this;
-  }
-
-  public ContactData withAddress(String address) {
-    this.address = address;
-    return this;
-  }
-
-  public ContactData withHomephone(String homephone) {
-    this.homephone = homephone;
-    return this;
-  }
-
-  public ContactData withMobilephone(String mobilephone) {
-    this.mobilephone = mobilephone;
-    return this;
-  }
-
-  public ContactData withWorkphone(String workphone) {
-    this.workphone = workphone;
-    return this;
-  }
-
-  public ContactData withFax(String fax) {
-    this.fax = fax;
-    return this;
-  }
-
-  public ContactData withEmail(String email) {
-    this.email = email;
-    return this;
-  }
-
-  public ContactData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
 }
