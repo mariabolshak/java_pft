@@ -17,10 +17,25 @@ public class ContactData {
   private String workphone;
   private String fax;
   private String email;
+  private String email1;
+  private String email2;
   private String group;
+  private String allPhones;
+  private String allEmails;
+
 
   public ContactData withId(int id) {
     this.id = id;
+    return this;
+  }
+
+  public ContactData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
+
+  public ContactData withAllEmails(String allEmails) {
+    this.allEmails = allEmails;
     return this;
   }
   public ContactData withFirstname(String firstname) {
@@ -58,17 +73,17 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withHomephone(String homephone) {
+  public ContactData withHomePhone(String homephone) {
     this.homephone = homephone;
     return this;
   }
 
-  public ContactData withMobilephone(String mobilephone) {
+  public ContactData withMobilePhone(String mobilephone) {
     this.mobilephone = mobilephone;
     return this;
   }
 
-  public ContactData withWorkphone(String workphone) {
+  public ContactData withWorkPhone(String workphone) {
     this.workphone = workphone;
     return this;
   }
@@ -80,6 +95,16 @@ public class ContactData {
 
   public ContactData withEmail(String email) {
     this.email = email;
+    return this;
+  }
+  public ContactData withEmail1(String email1) {
+    this.email1 = email1;
+    return this;
+  }
+
+
+  public ContactData withEmail2(String email2) {
+    this.email2 = email2;
     return this;
   }
 
@@ -146,15 +171,15 @@ public class ContactData {
     return address;
   }
 
-  public String getHomephone() {
+  public String getHomePhone() {
     return homephone;
   }
 
-  public String getMobilephone() {
+  public String getMobilePhone() {
     return mobilephone;
   }
 
-  public String getWorkphone() {
+  public String getWorkPhone() {
     return workphone;
   }
 
@@ -164,6 +189,17 @@ public class ContactData {
 
   public String getEmail() {
     return email;
+  }
+
+  public String getEmail1() { return email1; }
+
+  public String getEmail2() { return email2; }
+
+  public String getAllEmails() {
+    return allEmails;
+  }
+  public String getAllPhones() {
+    return allPhones;
   }
 
 
