@@ -5,8 +5,8 @@ import com.google.common.collect.ForwardingSet;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Contacts extends ForwardingSet <ContactData> {
-    private Set <ContactData> delegate;
+public class Contacts extends ForwardingSet<ContactData> {
+    private final Set<ContactData> delegate;
 
     public Contacts(Contacts contacts) {
         this.delegate = new HashSet<ContactData>(contacts.delegate);
@@ -27,6 +27,7 @@ public class Contacts extends ForwardingSet <ContactData> {
         contacts.add(contact);
         return contacts;
     }
+
     public Contacts without(ContactData contact) {
 
         Contacts contacts = new Contacts(this);
