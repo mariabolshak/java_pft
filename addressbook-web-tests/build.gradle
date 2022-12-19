@@ -16,4 +16,31 @@ dependencies {
 test {
 // useJUnitPlatform()
     useTestNG()
+
+    task testGroups(type: Test) {
+        useTestNG()
+                {
+                    suites 'src/test/resources/testngGroups.xml'
+                }
+        if (projects.hasProperty('browser')) {
+            systemProperty 'browser', "${browser}"
+        }
+        if (projects.hasProperty('target')) {
+            systemProperty 'target', "${target}"
+        }
+    }
+
+
+    task testContacts(type: Test) {
+        useTestNG()
+                {
+                    suites 'src/test/resources/testngContacts.xml'
+                }
+        if (projects.hasProperty('browser')) {
+            systemProperty 'browser', "${browser}"
+        }
+        if (projects.hasProperty('target')) {
+            systemProperty 'target', "${target}"
+        }
+    }
 }
