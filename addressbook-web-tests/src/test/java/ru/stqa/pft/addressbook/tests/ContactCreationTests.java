@@ -47,9 +47,9 @@ public class ContactCreationTests extends ContactModificationTests {
 
         app.goTo().homePage();
         File photo = new File("src/test/resources/stru.png");
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         app.contact().create(contact.withPhoto(photo));
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after.size(), equalTo(before.size() + 1));
         assertThat(after, equalTo(
                 before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
@@ -62,11 +62,11 @@ public class ContactCreationTests extends ContactModificationTests {
             app.group().create(new GroupData().withName("test1"));
         }
         app.goTo().homePage();
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData contact = new ContactData()
                 .withFirstname("Frosia").withLastname("Bolshakova").withNickname("masha").withTitle("DT").withCompany("TT").withAddress("Nevskiy").withHomePhone("567-86-89").withMobilePhone("+790909876").withWorkPhone("(812)4564564").withFax("456456").withEmail("dd@t.ru").withGroup("test1");
         app.contact().create(contact);
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after.size(), equalTo(before.size() + 1));
         assertThat(after, equalTo(
                 before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));

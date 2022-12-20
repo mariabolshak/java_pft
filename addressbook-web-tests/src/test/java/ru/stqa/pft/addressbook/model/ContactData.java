@@ -1,42 +1,93 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
+@Entity
+@Table(name = "addressbook")
+
 public class ContactData {
     @XStreamOmitField
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
+    @Expose
+    @Column (name = "firstname")
     private String firstname;
+    @Expose
+    @Column (name = "middlename")
     private String middlename;
+    @Expose
+    @Column (name = "lastname")
     private String lastname;
+    @Expose
+    @Column (name = "nickname")
     private String nickname;
+    @Expose
+    @Column (name = "title")
     private String title;
+    @Expose
+    @Column (name = "company")
     private String company;
+    @Expose
+    @Type(type = "text")
+    @Column (name = "address")
     private String address;
+    @Expose
+    @Type(type = "text")
+    @Column (name = "home")
     private String homephone;
+    @Expose
+    @Type(type = "text")
+    @Column (name = "mobile")
     private String mobilephone;
+    @Expose
+    @Type(type = "text")
+    @Column (name = "work")
     private String workphone;
+    @Expose
+    @Type(type = "text")
+    @Column (name = "fax")
     private String fax;
+    @Expose
+    @Type(type = "text")
+    @Column (name = "email")
     private String email;
+    @Expose
+    @Type(type = "text")
+    @Column (name = "email2")
     private String email1;
+    @Expose
+    @Type(type = "text")
+    @Column (name = "email3")
     private String email2;
+    @Transient
     private String group;
-    private File photo;
+    @Transient
+    private String allPhones;
+    @Transient
+    private String allEmails;
+    @Type(type = "text")
+    @Column (name = "photo")
+    private String photo;
 
     public File getPhoto() {
-        return photo;
+        if (photo == null) {
+            return null;
+        } else {
+            return new File(photo);
+        }
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
-
-    private String allPhones;
-    private String allEmails;
-
 
     public ContactData withId(int id) {
         this.id = id;
