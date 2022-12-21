@@ -8,14 +8,17 @@ dependencies {
     implementation 'org.seleniumhq.selenium:selenium-java:4.1.4'
     implementation 'org.slf4j:slf4j-nop:1.7.36'
     implementation 'org.hamcrest:hamcrest:2.2'
-
-
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
 }
+
 test {
- {
+// useJUnitPlatform()
+    useTestNG()
+
+    task testLogin(type: Test) {
         useTestNG()
                 {
-                    suites 'src/test/resources/testng.xml'
+                    suites 'src/test/resources/testngLoginTests.xml'
                 }
         if (projects.hasProperty('browser')) {
             systemProperty 'browser', "${browser}"
@@ -29,5 +32,25 @@ test {
     }
 
 
-
+    task testRegistration(type: Test) {
+        useTestNG()
+                {
+                    suites 'src/test/resources/testngRegistrationTests.xml'
+                }
+        if (projects.hasProperty('browser')) {
+            systemProperty 'browser', "${browser}"
+        }
+        if (projects.hasProperty('target')) {
+            systemProperty 'target', "${target}"
+        }
+        if (projects.hasProperty('verifyUI')) {
+            systemProperty 'verifyUI', "${verifyUI}"
+        }
+    }
 }
+
+
+
+
+
+

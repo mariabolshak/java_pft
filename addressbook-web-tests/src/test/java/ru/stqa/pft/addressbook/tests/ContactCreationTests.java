@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -48,7 +49,8 @@ public class ContactCreationTests extends ContactModificationTests {
         app.goTo().homePage();
         File photo = new File("src/test/resources/stru.png");
         Contacts before = app.db().contacts();
-        app.contact().create(contact.withPhoto(photo));
+        Groups groups = app.db().groups();
+        app.contact().create(contact.withPhoto(photo).inGroup(groups.iterator().next()));
         Contacts after = app.db().contacts();
         assertThat(after.size(), equalTo(before.size() + 1));
         assertThat(after, equalTo(
@@ -63,8 +65,9 @@ public class ContactCreationTests extends ContactModificationTests {
         }
         app.goTo().homePage();
         Contacts before = app.db().contacts();
+        Groups groups = app.db().groups();
         ContactData contact = new ContactData()
-                .withFirstname("Frosia").withLastname("Bolshakova").withNickname("masha").withTitle("DT").withCompany("TT").withAddress("Nevskiy").withHomePhone("567-86-89").withMobilePhone("+790909876").withWorkPhone("(812)4564564").withFax("456456").withEmail("dd@t.ru").withGroup("test1");
+                .withFirstname("Frosia").withLastname("Bolshakova").withNickname("masha").withTitle("DT").withCompany("TT").withAddress("Nevskiy").withHomePhone("567-86-89").withMobilePhone("+790909876").withWorkPhone("(812)4564564").withFax("456456").withEmail("dd@t.ru").inGroup(groups.iterator().next());
         app.contact().create(contact);
         Contacts after = app.db().contacts();
         assertThat(after.size(), equalTo(before.size() + 1));

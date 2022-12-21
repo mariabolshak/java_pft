@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class ContactHelper extends BaseHelper {
 
 
         if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
@@ -65,6 +66,30 @@ public class ContactHelper extends BaseHelper {
 
     public void initContactCreation() {
         click(By.linkText("add new"));
+    }
+
+    public void initGroupAssign(int id, GroupData group) {
+        wd.findElement(By.id(String.valueOf(id))).click();
+        wd.findElement(By.name("to_group")).click();
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(group.getId()));
+        wd.findElement(By.name("add")).click();
+    }
+
+    public void initGroupDeletion(ContactData contact, GroupData group) {
+        click(By.cssSelector("select[name=\"group\"] > option[value='" + group.getId() + "']"));
+        selectContactById(contact.getId());
+        wd.findElement(By.name("remove")).click();
+        returnToHomePage();
+    }
+
+    private void selectGroupForAdding(GroupData group) {
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
+
+    }
+
+    private void selectGroupForRemoval(GroupData group) {
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+
     }
 
     public void create(ContactData contact) {
@@ -89,15 +114,9 @@ public class ContactHelper extends BaseHelper {
         contactCache = null;
     }
 
-
-    public boolean isThereAContact() {
-        return isElementPresent(By.name("selected[]"));
+    public void selectContactById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
-
-    public void selectContact(int i) {
-        wd.findElements(By.name("selected[]")).get(i).click();
-    }
-
 
     private Contacts contactCache = null;
 

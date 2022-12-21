@@ -6,7 +6,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -17,64 +19,67 @@ public class ContactData {
     @Column(name = "id")
     private int id = Integer.MAX_VALUE;
     @Expose
-    @Column (name = "firstname")
+    @Column(name = "firstname")
     private String firstname;
     @Expose
-    @Column (name = "middlename")
+    @Column(name = "middlename")
     private String middlename;
     @Expose
-    @Column (name = "lastname")
+    @Column(name = "lastname")
     private String lastname;
     @Expose
-    @Column (name = "nickname")
+    @Column(name = "nickname")
     private String nickname;
     @Expose
-    @Column (name = "title")
+    @Column(name = "title")
     private String title;
     @Expose
-    @Column (name = "company")
+    @Column(name = "company")
     private String company;
     @Expose
     @Type(type = "text")
-    @Column (name = "address")
+    @Column(name = "address")
     private String address;
     @Expose
     @Type(type = "text")
-    @Column (name = "home")
+    @Column(name = "home")
     private String homephone;
     @Expose
     @Type(type = "text")
-    @Column (name = "mobile")
+    @Column(name = "mobile")
     private String mobilephone;
     @Expose
     @Type(type = "text")
-    @Column (name = "work")
+    @Column(name = "work")
     private String workphone;
     @Expose
     @Type(type = "text")
-    @Column (name = "fax")
+    @Column(name = "fax")
     private String fax;
     @Expose
     @Type(type = "text")
-    @Column (name = "email")
+    @Column(name = "email")
     private String email;
     @Expose
     @Type(type = "text")
-    @Column (name = "email2")
+    @Column(name = "email2")
     private String email1;
     @Expose
     @Type(type = "text")
-    @Column (name = "email3")
+    @Column(name = "email3")
     private String email2;
-    @Transient
-    private String group;
     @Transient
     private String allPhones;
     @Transient
     private String allEmails;
     @Type(type = "text")
-    @Column (name = "photo")
+    @Column(name = "photo")
     private String photo;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups",
+            joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
 
     public File getPhoto() {
         if (photo == null) {
@@ -175,11 +180,6 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withGroup(String group) {
-        this.group = group;
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -204,10 +204,6 @@ public class ContactData {
 
     public int getId() {
         return id;
-    }
-
-    public String getGroup() {
-        return group;
     }
 
     public String getFirstname() {
@@ -274,5 +270,13 @@ public class ContactData {
         return allPhones;
     }
 
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
+
+    public ContactData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
+    }
 
 }
