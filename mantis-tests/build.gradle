@@ -8,7 +8,13 @@ dependencies {
     implementation 'org.seleniumhq.selenium:selenium-java:4.1.4'
     implementation 'org.slf4j:slf4j-nop:1.7.36'
     implementation 'org.hamcrest:hamcrest:2.2'
-    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+    implementation 'commons-net:commons-net:3.6'
+    implementation 'org.subethamail:subethasmtp:3.1.7'
+    implementation 'ru.lanwen.verbalregex:java-verbal-expressions:1.6'
+    implementation 'org.apache.httpcomponents:httpclient:4.3.6'
+    implementation 'mysql:mysql-connector-java:8.0.15'
+    implementation 'org.hibernate:hibernate-core:5.4.1.Final'
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
 
 test {
