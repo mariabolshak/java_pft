@@ -31,6 +31,9 @@ test {
         if (projects.hasProperty('target')) {
             systemProperty 'target', "${target}"
         }
+        if (projects.hasProperty('verifyUI')) {
+            systemProperty 'verifyUI', "${verifyUI}"
+        }
     }
 
 
@@ -44,6 +47,9 @@ test {
         }
         if (projects.hasProperty('target')) {
             systemProperty 'target', "${target}"
+        }
+        if (projects.hasProperty('verifyUI')) {
+            systemProperty 'verifyUI', "${verifyUI}"
         }
     }
 }
