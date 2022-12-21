@@ -24,6 +24,7 @@ public class ChangePasswordHelper extends HelperBase {
     public void resetPassword(String user) throws InterruptedException {
         //   Thread.sleep(3000);
         this.username = user;
+        click(By.linkText("Manage"));
         click(By.linkText("Manage Users"));
         click(By.linkText(username));
         //    Thread.sleep(3000);
