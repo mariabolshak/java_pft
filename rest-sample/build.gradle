@@ -1,0 +1,30 @@
+
+apply plugin: 'java'
+
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation 'org.testng:testng:7.5'
+    implementation 'org.slf4j:slf4j-simple:2.0.5'
+    implementation 'com.google.code.gson:gson:2.10'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.14'
+    implementation 'org.apache.httpcomponents:fluent-hc:4.5.14'
+    implementation 'io.rest-assured:rest-assured:4.5.1'
+
+}
+
+task restAssuredTests (type: Test) {
+    useTestNG()
+            {
+                suites 'resources/restAssuredTest.xml'
+            }
+}
+
+task restTests (type: Test) {
+    useTestNG()
+            {
+                suites 'resources/restAssuredTest.xml'
+            }
+}
