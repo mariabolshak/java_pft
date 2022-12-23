@@ -8,6 +8,5 @@ dependencies {
     implementation 'org.testng:testng:7.5'
 }
 test {
-// useJUnitPlatform()
     useTestNG()
 }
