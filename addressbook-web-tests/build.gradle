@@ -25,13 +25,13 @@ test {
                 {
                     suites 'src/test/resources/testngGroups.xml'
                 }
-        if (projects.hasProperty('browser')) {
+        if (project.hasProperty('browser')) {
             systemProperty 'browser', "${browser}"
         }
-        if (projects.hasProperty('target')) {
+        if (project.hasProperty('target')) {
             systemProperty 'target', "${target}"
         }
-        if (projects.hasProperty('verifyUI')) {
+        if (project.hasProperty('verifyUI')) {
             systemProperty 'verifyUI', "${verifyUI}"
         }
     }
