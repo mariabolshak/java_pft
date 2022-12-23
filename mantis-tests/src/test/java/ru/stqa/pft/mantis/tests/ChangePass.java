@@ -29,7 +29,7 @@ public class ChangePass extends TestBase {
     @Test
     public void changePasswordTest() throws IOException, MessagingException, InterruptedException {
         app.getDriver();
-        app.changePassword().login("administrator", "root");
+        app.changePassword().login(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"));
         Users listOfUsers = app.db().users();
         UserData selectedUser = listOfUsers.iterator().next();
         String username = selectedUser.getUsername();
