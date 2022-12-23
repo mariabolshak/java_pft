@@ -36,22 +36,6 @@ test {
         }
     }
 
-    task testGroupsContacts(type: Test) {
-        useTestNG()
-                {
-                    suites 'src/test/resources/testngGroupsContacts.xml'
-                }
-        if (project.hasProperty('browser')) {
-            systemProperty 'browser', "${browser}"
-        }
-        if (project.hasProperty('target')) {
-            systemProperty 'target', "${target}"
-        }
-        if (project.hasProperty('verifyUI')) {
-            systemProperty 'verifyUI', "${verifyUI}"
-        }
-    }
-
 
     task testContacts(type: Test) {
         useTestNG()
